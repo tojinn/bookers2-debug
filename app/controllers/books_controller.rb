@@ -39,11 +39,10 @@ class BooksController < ApplicationController
     @book.destoy
     redirect_to books_path
   end
+end
 
   private
 
   def book_params
-    params.require(:book).permit(:title)
+    params.require(:book).permit(:title, :body)
   end
-
-end
