@@ -43,13 +43,18 @@
         <% @book.book_comments.each do |book_comment| %>
          <p><%= attachment_image_tag(@book.user, :profile_image, :fill, 100, 100, fallback: "no-image-icon.jpg") %></p>
          <%= book_comment.user.name %>
-         <%= book_comment.created_at.strftime('%Y/%m/%d') %><%= book_comment.comment %>
+         <%= book_comment.comment %>
+         <% if book_comment.user == current_user %>
+          <div>
+            <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete %>
+          </div>
+         <% end %>
          <% end %>
       </div>
       <div>
         <%= form_with(model:[@book, @book_comment], local: true) do |f| %>
          <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>
-         <f.submit "送信" %>
+         <%= f.submit "送信" %>
         <% end %>
       </div>
     </div>
