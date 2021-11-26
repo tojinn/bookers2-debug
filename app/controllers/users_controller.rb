@@ -6,8 +6,6 @@ class UsersController < ApplicationController
     @book = @user.books
     @books = Book.new
     @booklist = Book.all
-    @following_users = @user.following_user
-    @follower_users = @user.follower_user
   end
 
   def index
@@ -15,6 +13,8 @@ class UsersController < ApplicationController
     @books = Book.new
     @book = Book.all
     @user = current_user
+    @following_users = @user.following_user
+    @follower_users = @user.follower_user
   end
 
   def edit

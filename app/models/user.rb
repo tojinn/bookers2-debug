@@ -8,9 +8,9 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :followed, class_name: "Relationship", foreign_key: "followerd_id", dependent: :destroy
-  has_many :following_user, through: :follower, source: :followed
-  has_many :follower_user, through: :followed, source: :follower
+  has_many :followerd, class_name: "Relationship", foreign_key: "followerd_id", dependent: :destroy
+  has_many :following_user, through: :follower, source: :followerd
+  has_many :follower_user, through: :followerd, source: :follower
   
   attachment :profile_image, destroy: false
 
@@ -22,15 +22,15 @@ class User < ApplicationRecord
   end
   
   def follow(user_id)
-    follower.create(followed_id: user_id)
+    follower.create(followerd_id: user_id)
   end
   
   def unfollow(user_id)
-    follower.find_by(followed_id: user_id).destroy
+    follower.find_by(followerd_id: user_id).destroy
   end
   
   def following?(user)
-    following_user.include?(user)
+    following_user.include?(@user)
   end
   
 end

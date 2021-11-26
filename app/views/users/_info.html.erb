@@ -8,6 +8,14 @@
 	  <th>introduction</th>
 	  <th><%= @user.introduction %></th>
   </tr>
+  <tr>
+    <th>follows</th>
+    <th><%= "フォロー数: #{@user.follower.count}" %></th>
+  </tr>
+  <tr>
+    <th>fllowers</th>
+    <th><%= "フォロワー数: #{@user.followerd.count}" %></th>
+  </tr>
 </table>
 
 <div class='row'>
