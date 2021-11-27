@@ -6,6 +6,8 @@ class UsersController < ApplicationController
     @book = @user.books
     @books = Book.new
     @booklist = Book.all
+    @following_users = @user.following_user
+    @follower_users = @user.follower_user
   end
 
   def index
@@ -34,16 +36,15 @@ class UsersController < ApplicationController
     end
   end
   
-  def follow
-    user = user.find(params[:id])
-    @users = user.following_user.page(params[:page]).per(3).reverse_order
+  def follows
+   @user = User.find(params[:id])
+   @following_users = @user.following_user
   end
   
   def followers
-    user = User.find(params[:id])
-    @users = user.follower_user.page(params[:page]).per(3).reverse_order
+    @user = User.find(params[:id])
+    @follower_users = @user.follower_user
   end
-
   private
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)

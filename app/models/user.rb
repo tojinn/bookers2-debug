@@ -29,8 +29,8 @@ class User < ApplicationRecord
     follower.find_by(followerd_id: user_id).destroy
   end
   
-  def following?(user)
-    following_user.include?(@user)
+  def following?(other_user)
+    following_user.include?(other_user)
   end
   
 end

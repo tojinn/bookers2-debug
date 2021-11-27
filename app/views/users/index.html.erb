@@ -15,11 +15,11 @@
   </tr>
   <tr>
     <th>follows</th>
-    <th><%= "フォロー数: #{@user.follower.count}" %></th>
+    <th><%= link_to "フォロー数: #{@user.follower.count}", follows_user_path(@user) %></th>
   </tr>
   <tr>
     <th>fllowers</th>
-    <th><%= "フォロワー数: #{@user.followerd.count}" %></th>
+    <th><%= link_to "フォロワー数: #{@user.followerd.count}", followers_user_path(@user) %></th>
   </tr>
 </table>
 
