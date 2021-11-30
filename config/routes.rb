@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     member do
      get :follows, :followers
   end
+    collection do
+     get 'search'
+    end
    resource :relationships, only: [:create, :destroy]
    get 'relationships/followers' => 'relationships#followers', as: 'followers'
    get 'relationships/followings' => 'relationships#followings', as: 'followings'
@@ -17,4 +20,5 @@ Rails.application.routes.draw do
   end
   
   get 'home/about' => 'homes#about'
+  get 'search' => 'searches#search'
 end

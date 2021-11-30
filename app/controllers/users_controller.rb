@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:update]
+  before_action :set_q, only: [:index, :search]
 
   def show
     @user = User.find(params[:id])
@@ -17,6 +18,8 @@ class UsersController < ApplicationController
     @user = current_user
     @following_users = @user.following_user
     @follower_users = @user.follower_user
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true)
   end
 
   def edit
@@ -45,7 +48,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @follower_users = @user.follower_user
   end
+  
+  def search
+    @results = @q.result
+  end
+  
   private
+  
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)
   end
@@ -57,3 +66,7 @@ class UsersController < ApplicationController
     end
   end
 end
+
+  def set_q
+    @q = User.ransack(params[:q])
+  end
