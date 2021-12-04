@@ -1,5 +1,4 @@
 class BooksController < ApplicationController
-  helper_method :sort_column, :sort_direction
 
   def show
     @books = Book.new
@@ -9,10 +8,17 @@ class BooksController < ApplicationController
   end
 
   def index
-    @book = Book.all
+    #binding.pry
+    case params[:order_type]
+    when "created_at"
+      @books = Book.order(created_at: :desc)
+    when "rate"
+       @books = Book.order(rate: :desc)
+    else
+      @books = Book.all
+    end
     @user = current_user
-    @books = Book.new
-    @book = Book.order("#{sort_column} #{sort_direction}")
+    @book = Book.new
   end
 
   def create
@@ -53,26 +59,10 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
   
-  def sort_direction
-　　 %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
-　end
-　
-　def sort_column
-　  Article.column_names.include?(params[:sort]) ? params[:sort] : 'title'
-　end
-　
-　def sort_order(column, title, hash_param = {})
-　 css_class = column == sort_column ? "current #{sort_direction}" : nil
-　 direction = column == sort_column && sort_direction == 'asc' ? 'desc' : 'asc'
-　 link_to title, { sort: column, direction: direction }.merge(hash_param), class: "sort_header #{css_class}"
-　end
-　
 end
 
   private
 
   def book_params
-    params.require(:book).permit(:title, :body, :rate)
+    params.require(:book).permit(:title, :body, :rate, :category)
   end
-  
-end
