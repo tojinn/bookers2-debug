@@ -18,6 +18,8 @@ class BooksController < ApplicationController
     end
     @user = current_user
     @book = Book.new
+    @category_word = params[:category_word]
+    #binding.pry
   end
 
   def create
@@ -58,10 +60,10 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
   
-end
-
   private
 
   def book_params
     params.require(:book).permit(:title, :body, :rate, :category)
   end
+
+end

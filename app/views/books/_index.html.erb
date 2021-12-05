@@ -1,4 +1,4 @@
-<%= form_tag(users_path, method: :get) do %>
+<%= form_tag(books_path, method: :get) do %>
  <%= text_field_tag (:category_word) %> 
  <%= submit_tag "検索",class: "button is-info" %>
 <% end %>
@@ -16,6 +16,7 @@
 
   <tbody>
     <% @books.each do |book| %>
+    <% if @category_word == nil || @category_word == book.category %>
       <tr>
         <td><%= link_to user_path(book.user) do %>
           <%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
@@ -35,6 +36,7 @@
         </td>
         <td class="book-rate" data-score="<%= book.rate %>"></td>
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>

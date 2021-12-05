@@ -42,4 +42,12 @@ class Book < ApplicationRecord
     end
   end
   
+  def self.books(category_word)
+    if books
+       @book = Book.where("category LIKE?","%#{word}%")
+    else
+      @book = Book.all
+    end
+  end
+  
 end
