@@ -8,7 +8,6 @@ class BooksController < ApplicationController
   end
 
   def index
-    #binding.pry
     case params[:order_type]
     when "created_at"
       @books = Book.order(created_at: :desc)

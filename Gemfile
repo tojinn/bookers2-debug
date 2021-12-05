@@ -74,3 +74,8 @@ gem 'bootstrap', '~> 4.5'
 gem 'ransack'
 
 gem 'jquery-rails'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
