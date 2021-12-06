@@ -9,7 +9,18 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
-    <table class="table table-bordered">
+      
+      <%= form_with url: user_search_path(@user), method: :get do |f| %>
+       <%= f.date_field :created_at %>　
+       <%= f.submit '検索', class: 'btn btn-primary'  %>
+      <% end %>
+      
+      <div id="search_result">
+        <% if @search_book.present? %>
+         <%= render 'search', search_book: @search_book %>　#③
+        <% end %>
+      </div>
+     <table class="table table-bordered">
       <h2>7日間分の投稿数</h2>
       <thead>
         <tr>
