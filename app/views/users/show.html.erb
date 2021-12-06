@@ -9,51 +9,74 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
-    </div>
-    <table class='table'>
-      <h2>投稿数の前日比・前週比</h2>
+    <table class="table table-bordered">
+      <h2>7日間分の投稿数</h2>
       <thead>
         <tr>
-          <th>今日の投稿数</th>
-          <th>前日の投稿数</th>
-          <th>前日比</th>
+          <th>6日前</th>
+          <th>5日前</th>
+          <th>4日前</th>
+          <th>3日前</th>
+          <th>2日前</th>
+          <th>1日前</th>
+          <th>今日</th>
         </tr>
         <tbody>
          <tr>
-           <td><%= @today_book.count %></td>
+           <td><%= @six_days_book.count %></td>
+           <td><%= @five_days_book.count %></td>
+           <td><%= @four_days_book.count %></td>
+           <td><%= @three_days_book.count %></td>
+           <td><%= @two_days_book.count %></td>
            <td><%= @yesterday_book.count %></td>
-           <% if @yesterday_book.count == 0 %>
-              <td>先日の投稿はありません</td>
-           <% else %>
-           <td>
-             <% @the_day_before =   @today_book.count / @yesterday_book.count.to_f  %>
-             <%= (@the_day_before * 100).round %>%
-           </td>
-          <% end %>
-         </tr>
-        </tbody>
-      </thead>
-      <thead>
-        <tr>
-          <th>今週の投稿数</th>
-          <th>前週の投稿数</th>
-          <th>前週比</th>
-        </tr>
-        <tbody>
-         <tr>
-           <td><%= @this_week_book.count %></td>
-           <td><%= @last_week_book.count %></td>
-           <% if @last_week_book.count == 0 %>
-              <td>先週の投稿はありません</td>
-           <% else %>
-             <td>
-               <% @the_week_before =   @this_week_book.count / @last_week_book.count.to_f  %>
-               <%= (@the_week_before * 100).round %>%
-             </td>
-            <% end %>
+           <td><%= @today_book.count %></td>
          </tr>
         </tbody>
       </thead>
     </table>
+    <h2>7日間の投稿数の比較</h2>
+    <canvas id="myChart"></canvas>
+    <script>
+     var ctx = document.getElementById("myChart").getContext('2d')
+     var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["6日前", "5日前", "4日前", "3日前", "2日前", "1日前", "今日"],
+          datasets: [{
+            label: "投稿した本の数",
+            data: [<%= @six_days_book.count %>, <%= @five_days_book.count %>, <%= @four_days_book.count %>, <%= @three_days_book.count %>, <%= @two_days_book.count %>, <%= @yesterday_book.count %>, <%= @today_book.count %>],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+           ],
+            borderWidth: 1
+          }]
+        },
+       options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                suggestedMin: 0,
+                suggestedMax: 10
+              }
+            }]
+          }
+        }
+      });
+    </script>
   </div>
+ </div> 
 </div>
+
