@@ -17,6 +17,8 @@ class User < ApplicationRecord
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
   
+  
+  
   def after_sign_in_path_for(resource)
     user_path(users.id)
   end

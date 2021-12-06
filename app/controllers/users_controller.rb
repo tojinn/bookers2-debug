@@ -9,6 +9,10 @@ class UsersController < ApplicationController
     @books = Book.all
     @following_users = @user.following_user
     @follower_users = @user.follower_user
+    @today_book =  @book.created_today
+    @yesterday_book = @book.created_yesterday
+    @this_week_book = @book.created_this_week
+    @last_week_book = @book.created_last_week
   end
 
   def index
