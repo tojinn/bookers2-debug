@@ -8,18 +8,24 @@ class GroupsController < ApplicationController
   end
   
   def show
-      @user = current_user
+     @user = current_user
      @book = Book.new
      @group = Group.find(params[:id])
   end
   
+  def join
+     @group = Group.find(params[:group_id])
+     @group.users << current_user
+     redirect_to  groups_path
+  end
   def new
      @group = Group.new
   end
   
   def create
-      @group = Group.new(group_params)
+     @group = Group.new(group_params)
      @group.owner_id = current_user.id
+     @group.users << current_user
       if @group.save
          redirect_to groups_path
       else
@@ -36,6 +42,12 @@ class GroupsController < ApplicationController
     else
       render "edit"
     end
+  end
+  
+  def destroy
+     @group = Group.find(params[:id])
+     @group.users.delete(current_user)
+     redirect_to groups_path
   end
   
   private

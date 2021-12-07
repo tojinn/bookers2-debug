@@ -20,7 +20,9 @@ Rails.application.routes.draw do
    resources :book_comments, only: [:create, :destroy]
   end
   
-  resources :groups, except: [:destroy]
+  resources :groups do
+   get "join" => "groups#join"
+  end
   
   get 'home/about' => 'homes#about'
   get 'search' => 'searches#search'
