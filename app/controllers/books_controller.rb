@@ -8,13 +8,19 @@ class BooksController < ApplicationController
   end
 
   def index
+    to  = Time.current.at_end_of_day
+    from  = (to - 6.day).at_beginning_of_day
     case params[:order_type]
     when "created_at"
-      @books = Book.order(created_at: :desc)
+     @books = Book.order(created_at: :desc)
     when "rate"
-       @books = Book.order(rate: :desc)
+     @books = Book.order(rate: :desc)
     else
-      @books = Book.all
+     @books = Book.includes(:favorited_users).
+     sort {|a,b| 
+       b.favorited_users.includes(:favorites).where(created_at: from...to).size <=> 
+       a.favorited_users.includes(:favorites).where(created_at: from...to).size
+      }
     end
     @user = current_user
     @book = Book.new
