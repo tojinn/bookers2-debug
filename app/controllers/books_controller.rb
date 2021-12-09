@@ -1,10 +1,12 @@
 class BooksController < ApplicationController
+  impressionist :actions => [:show]
 
   def show
     @books = Book.new
     @book = Book.find(params[:id])
     @user = current_user
     @book_comment = BookComment.new
+    impressionist(@book, nil, unique: [:session_hash.to_s])
   end
 
   def index
@@ -25,7 +27,7 @@ class BooksController < ApplicationController
     @user = current_user
     @book = Book.new
     @category_word = params[:category_word]
-    #binding.pry
+    
   end
 
   def create

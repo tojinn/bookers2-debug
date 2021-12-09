@@ -1,0 +1,27 @@
+
+[1mFrom:[0m /home/ec2-user/environment/bookers2-debug/app/controllers/books_controller.rb:30 BooksController#index:
+
+    [1;34m12[0m: [32mdef[0m [1;34mindex[0m
+    [1;34m13[0m:   to  = [1;34;4mTime[0m.current.at_end_of_day
+    [1;34m14[0m:   from  = (to - [1;34m6[0m.day).at_beginning_of_day
+    [1;34m15[0m:   [32mcase[0m params[[33m:order_type[0m]
+    [1;34m16[0m:   [32mwhen[0m [31m[1;31m"[0m[31mcreated_at[1;31m"[0m[31m[0m
+    [1;34m17[0m:    @books = [1;34;4mBook[0m.order([35mcreated_at[0m: [33m:desc[0m)
+    [1;34m18[0m:   [32mwhen[0m [31m[1;31m"[0m[31mrate[1;31m"[0m[31m[0m
+    [1;34m19[0m:    @books = [1;34;4mBook[0m.order([35mrate[0m: [33m:desc[0m)
+    [1;34m20[0m:   [32melse[0m
+    [1;34m21[0m:    @books = [1;34;4mBook[0m.includes([33m:favorited_users[0m).
+    [1;34m22[0m:    sort {|a,b| 
+    [1;34m23[0m:      b.favorited_users.includes([33m:favorites[0m).where([35mcreated_at[0m: from...to).size <=> 
+    [1;34m24[0m:      a.favorited_users.includes([33m:favorites[0m).where([35mcreated_at[0m: from...to).size
+    [1;34m25[0m:     }
+    [1;34m26[0m:   [32mend[0m
+    [1;34m27[0m:   @user = current_user
+    [1;34m28[0m:   @book = [1;34;4mBook[0m.new
+    [1;34m29[0m:   @category_word = params[[33m:category_word[0m]
+ => [1;34m30[0m:   binding.pry
+    [1;34m31[0m:   @book_id = [1;34;4mBook[0m.find(params[[33m:book_id[0m])
+    [1;34m32[0m:   impressionist(@book_id, [1;36mnil[0m, [35munique[0m: [[33m:session_hash[0m.to_s])
+    [1;34m33[0m:   
+    [1;34m34[0m: [32mend[0m
+

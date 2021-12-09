@@ -34,7 +34,7 @@
         <td>
           <p>コメント数<%= book.book_comments.count %></p>
         </td>
-        <td class="book-rate" data-score="<%= book.rate %>"></td>
+        <td>閲覧数:<%= book.impressionist_count(:filter=>:session_hash) %></td>
       </tr>
     <% end %>
     <% end %>
