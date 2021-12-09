@@ -27,5 +27,6 @@
     <% else %>
      <%= link_to "フォロー", user_relationships_path(user.id), method: :POST, class: "btn btn-success" %>
     <% end %>
+    <%= link_to 'Chat', chat_path(@user.id) %>
   <% end %>
 
